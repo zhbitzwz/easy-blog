@@ -1,0 +1,6 @@
+blog/content/
+*.html~
+*.pyc
+*.py~
+*.swp
+*.swo

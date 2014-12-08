@@ -1,4 +1,4 @@
 my_blog
 =======
 
-based on django
+基于Django的个人博客

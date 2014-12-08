@@ -1,0 +1,21 @@
+{% extends 'my_blog/article_base.html' %}
+{% block article %}
+{% autoescape off %}
+<article>
+    <header>
+      <a style="display: none" href="https://plus.google.com/+Yaolaike9mZuo?rel=author">Google</a>
+      <p class="meta">
+        <time pubdate="{{ article.add_date }}">
+          {{ article.add_date|date:'M'|upper }}
+          {{ article.add_date|date:"dS"|upper}}, {{ article.add_date.year }}
+        </time>
+      </p>
+      <h1 class="title"><b>{{ article.title }}</b></h1>
+	{% for tag in article.tags.all %}
+		<li>{{tag}}</li>
+	{% endfor %}
+    </header>
+    {{ article.get_html }}
+</article>
+{% endautoescape %}
+{% endblock article %}
