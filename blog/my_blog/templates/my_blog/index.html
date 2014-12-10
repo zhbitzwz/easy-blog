@@ -1,30 +1,31 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html>
-<head>
-  <title>livevilwt's blog</title>
-  <script src="{% static 'my_blog/123.js' %}"></script>
-  <meta charset="utf-8"/>
-</head>
-<body>
+{% extends 'my_blog/blog_base.html' %}
+{% block content %}
+    <div class="grid clr">
 	{% for blogpost in blogposts %}
-		<a href="{{blogpost.get_absolute_url}}"><h1>{{ blogpost.title }}</h1></a>
-		{% for tag in blogpost.tags.all %}
+        <article id="post-783" class="loop-entry">
+            <div class="loop-entry-details">
+                <header><h2><a href="{{blogpost.get_absolute_url}}">{{ blogpost.title }}</a></h2></header>
+		<p>{{ blogpost.add_date }}</p>
+                <div class="loop-entry-excerpt">
+                	{% for tag in blogpost.tags.all %}
 			<li>{{tag}}</li>
-		{% endfor %}
-	{% if blogposts.object_list and blogposts.paginator.num_pages > 1 %}
+			{% endfor %}
+                </div>
+            </div>
+        </article>
+	{% endfor %}
+   </div>
+    	{% if blogposts.object_list and blogposts.paginator.num_pages > 1 %}
           <div>
           <ul class="pager">
           {% if blogposts.has_previous %}
-            <li><a href="?page={{ blogpost.previous_page_number }}">上一页</a></li>
+            <li><a href="?page={{ blogposts.previous_page_number }}">上一页</a></li>
           {% endif %}
 
           {% if blogposts.has_next %}
-            <li><a href="?page={{ blogpost.next_page_number }}">下一页</a></li>
+            <li><a href="?page={{ blogposts.next_page_number }}">下一页</a></li>
           {% endif %}
           </ul>
           </div>
         {% endif %}
-	{% endfor %}
-</body>
-</html>
+{% endblock content %}

@@ -15,7 +15,7 @@ def home(request):
 		blogposts = paginator.page(page)
 	except (InvalidPage, EmptyPage):
 		blogposts = paginator.page(paginator.num_pages)
-	return render(request,'my_blog/index.html',dict(blogposts=blogposts,user=request.user))
+	return render(request,'my_blog/index.html',dict(blogposts=blogposts))
 
 def article(request,id):
 	article = get_object_or_404(BlogPost, pk=id)
@@ -30,3 +30,6 @@ def blogpost(request,id):
 			raise Http404
 	else:
 		return redirect('/')
+
+def contact(request):
+	return render(request,'my_blog/contact.html')

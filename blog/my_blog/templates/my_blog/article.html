@@ -1,5 +1,5 @@
-{% extends 'my_blog/article_base.html' %}
-{% block article %}
+{% extends 'my_blog/blog_base.html' %}
+{% block content %}
 {% autoescape off %}
 <article>
     <header>
@@ -18,4 +18,4 @@
     {{ article.get_html }}
 </article>
 {% endautoescape %}
-{% endblock article %}
+{% endblock content %}

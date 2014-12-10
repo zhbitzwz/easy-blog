@@ -9,6 +9,8 @@ import requests
 
 upload_dir = 'content/BlogPost/%s/%s'
 
+BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+
 # Create your models here.
 class BlogPost(models.Model):
 	class Meta:

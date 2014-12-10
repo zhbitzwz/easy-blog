@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+  <title>livevilwt's blog</title>
+  <link rel="stylesheet" id="contact-form-7-css" href="{% static 'my_blog/css/styles.css' %}" type="text/css" media="all">
+  <link rel="stylesheet" id="lefty-style-css" href="{% static 'my_blog/css/style.css' %}" type="text/css" media="all">
+  <link rel="stylesheet" id="google-fonts-droid-sans-droid-serif-css" href="{% static 'my_blog/css/css' %}" type="text/css" media="all">
+  <meta charset="utf-8"/>
+<style>
+#logo{
+    width:110px;
+    height:110px;
+    border:4px solid #ddddde;
+    -moz-border-radius: 59px;
+    -webkit-border-radius: 59px;
+    border-radius:59px;
+    behavior:url(PIE.htc);
+    position:relative;
+}
+</style>
+</head>
+<body class="home blog">
+
+<<div id="wrap" class="container clr">
+    
+    	<div class="container-left span_5 col clr-margin clr">
+    
+        <header id="masthead" class="site-header clr" role="banner">
+            <div class="logo">
+                  <a href="/" rel="home"><img src="{% static 'my_blog/img/logo.jpg' %}" alt="" id='logo'></a>
+            </div>
+        </header>
+        
+    <div id="secondary" class="sidebar-container" role="complementary">
+		<div class="sidebar-inner">
+    		<div class="widget-area">
+    		    <div class="sidebar-box widget_pages clr"><h4 class="widget-title"><span>Pages</span></h4>
+                        <ul>
+            		<li class="page_item page-item-11"><a href="/blog">Blog</a></li>
+                        <li class="page_item page-item-304"><a href="/blog/contact">Contact</a></li>
+            		</ul>
+    		    </div>
+                <div class="sidebar-box widget_categories clr">
+                    <h4 class="widget-title"><span>Categories</span></h4>
+                    <ul>
+                    	<li class="cat-item cat-item-2"><a href="#" >Animal</a></li>
+                    	<li class="cat-item cat-item-1"><a href="#" >People</a></li>
+                    	<li class="cat-item cat-item-4"><a href="#">Scenic</a></li>
+                    	<li class="cat-item cat-item-5"><a href="#" >Space</a></li>
+            	    </ul>
+                </div>
+                <div class="sidebar-box widget_search clr">
+                    <form method="get" id="searchform" class="searchform" action="./Lefty_files/Lefty.html" role="search">
+                    	<input type="search" class="field" name="s" value="" id="s" placeholder="搜索 …">
+                    </form>
+                </div>
+            </div>
+		</div>
+	</div><!-- #secondary -->
+        
+	</div><!-- .left-container clr -->
+        
+    <div class="container-right span_19 col clr">
+    <div id="main" class="site-main row clr fitvids">
+    <div id="primary" class="content-area clr">
+	<div id="content" class="site-content" role="main">
+	{% block content %}
+
+    	{% endblock content %}
+    </div><!-- #content -->
+    </div><!-- #primary -->
+	</div><!-- /site-content -->
+    </div><!-- /main-content -->
+</div><!-- /wrap -->
+
+</body>
+</html>
