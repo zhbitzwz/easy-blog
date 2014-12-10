@@ -3,6 +3,8 @@ from taggit.managers import TaggableManager
 from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 import requests
 
 upload_dir = 'content/BlogPost/%s/%s'
@@ -54,3 +56,9 @@ class BlogPost(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('my_blog.views.article',kwargs={'id':self.id})
+
+@receiver(pre_delete,sender=BlogPost)
+def blogpost_delete(instance,**kwargs):
+	if instance.html_file:
+		instance.html_file.delete(save=False)
+	

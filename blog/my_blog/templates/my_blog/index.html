@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-{% load static %}
+{% load staticfiles %}
 <html>
 <head>
   <title>livevilwt's blog</title>
-  <link rel="shortcut icon" type="image/x-icon" href="{% static 'css3two_blog/images/thumbnail.jpg' %}" media="screen" />
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <script src="{% static 'my_blog/123.js' %}"></script>
+  <meta charset="utf-8"/>
 </head>
 <body>
 	{% for blogpost in blogposts %}
@@ -12,6 +12,19 @@
 		{% for tag in blogpost.tags.all %}
 			<li>{{tag}}</li>
 		{% endfor %}
+	{% if blogposts.object_list and blogposts.paginator.num_pages > 1 %}
+          <div>
+          <ul class="pager">
+          {% if blogposts.has_previous %}
+            <li><a href="?page={{ blogpost.previous_page_number }}">上一页</a></li>
+          {% endif %}
+
+          {% if blogposts.has_next %}
+            <li><a href="?page={{ blogpost.next_page_number }}">下一页</a></li>
+          {% endif %}
+          </ul>
+          </div>
+        {% endif %}
 	{% endfor %}
 </body>
 </html>
