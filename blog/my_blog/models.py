@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from django.db import models
 from taggit.managers import TaggableManager
 from datetime import datetime
@@ -9,26 +10,22 @@ import requests
 
 upload_dir = 'content/BlogPost/%s/%s'
 
-BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
-
 # Create your models here.
 class BlogPost(models.Model):
 	class Meta:
 		ordering = ['-add_date']
 
 	def html_dir(self,filename):
-		if self.add_date:
-			year = self.add_date.year
-		else:
-			year = datetime.now().year
+		year = self.add_date.year if self.add_date else datetime.now().year
 		upload_to = upload_dir %(year,filename)
 		return upload_to
 
-	title = models.CharField(max_length=100)
-	body = models.TextField(blank=True)
-	add_date = models.DateTimeField(auto_now_add=True)
+	title = models.CharField(u'标题',max_length=100)
+	body = models.TextField(u'内容(Markdown)',blank=True)
+	add_date = models.DateTimeField(u'日期',auto_now_add=True)
 	html_file = models.FileField(upload_to=html_dir,blank=True)
-	tags = TaggableManager()
+	use_visual_editor = models.BooleanField(u'关闭Markdown')
+	tags = TaggableManager(u'标签(逗号分隔)')
 	
 	def __unicode__(self):
 		return self.title
@@ -50,8 +47,11 @@ class BlogPost(models.Model):
 			data = self.body.encode('utf-8')
 		else:
 			print 'Error!'
-		r = requests.post('https://api.github.com/markdown/raw',headers=headers,data=data)
-		self.html_file.save(self.title+'.html',ContentFile(r.text.encode('utf-8')),save=False)
+		if self.use_visual_editor == False:
+			r = requests.post('https://api.github.com/markdown/raw',headers=headers,data=data)
+			self.html_file.save(self.title+'.html',ContentFile(r.text.encode('utf-8')),save=False)
+		else:
+			self.html_file.save(self.title+'.html',ContentFile(data),save=False)
 		self.html_file.close()
 
 		super(BlogPost,self).save(*args,**kwargs)
