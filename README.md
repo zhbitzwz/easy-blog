@@ -2,6 +2,7 @@ my_blog
 =======
 
 基于Django的个人博客
+SAE部署：http://livevilwt.me/blog/
 
 ### Init
 `
