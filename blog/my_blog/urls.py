@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from . import views
+from . import views,feeds
 
 urlpatterns = patterns('',
     # Examples:
@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 	url(r'^$',views.home),
 	url(r'^(?P<id>\d+)/$',views.blogpost,name='blogpost'),
-	url(r'^article/(?P<id>\d+)/$',views.article,name='article'),
+	url(r'^article/(?P<slug>[-\w\d]+)-(?P<id>\d+)/$',views.article,name='article'),
 	url(r'^contact/$',views.contact),
+	url(r'^rss/$',feeds.ArticleFeed()),
 )

@@ -1,11 +1,12 @@
 #-*- coding:utf-8 -*-
 from django.db import models
-from taggit.managers import TaggableManager
 from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+from taggit.managers import TaggableManager
 import requests
 
 upload_dir = 'content/BlogPost/%s/%s'
@@ -24,6 +25,7 @@ class BlogPost(models.Model):
 	body = models.TextField(u'内容(Markdown)',blank=True)
 	add_date = models.DateTimeField(u'日期',auto_now_add=True)
 	html_file = models.FileField(upload_to=html_dir,blank=True)
+	slug = models.SlugField(max_length=100, blank=True)
 	tags = TaggableManager(u'标签(逗号分隔)')
 	
 	def __unicode__(self):
@@ -38,6 +40,7 @@ class BlogPost(models.Model):
 			return f.read().encode('utf-8')
 
 	def save(self,*args,**kwargs):
+		self.slug = slugify(self.title)
 		data = ''
 		headers = {'Content-Type':'text/plain'}
 		if type(self.body)==bytes:
@@ -53,7 +56,7 @@ class BlogPost(models.Model):
 		super(BlogPost,self).save(*args,**kwargs)
 
 	def get_absolute_url(self):
-		return reverse('my_blog.views.article',kwargs={'id':self.id})
+		return reverse('my_blog.views.article',kwargs={'slug': self.slug, 'id':self.id})
 
 @receiver(pre_delete,sender=BlogPost)
 def blogpost_delete(instance,**kwargs):
