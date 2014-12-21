@@ -1,21 +1,50 @@
-{% extends 'my_blog/blog_base.html' %}
-{% block content %}
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+<title>{{ article.title }}</title>
+<link rel="stylesheet" href="{% static 'my_blog/css/pure-min.css' %}">
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="{% static 'my_blog/css/side-menu-old-ie.css' %}">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<link rel="stylesheet" href="{% static 'my_blog/css/side-menu.css' %}">
+<!--<![endif]-->
+</head>
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu pure-menu-open">
+            <a class="pure-menu-heading" href="javascipt:void(0)">livevilwt.me</a>
+            <ul>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
 {% autoescape off %}
-<article>
-    <header>
-      <a style="display: none" href="https://plus.google.com/+Yaolaike9mZuo?rel=author">Google</a>
-      <p class="meta">
-        <time pubdate="{{ article.add_date }}">
-          {{ article.add_date|date:'M'|upper }}
-          {{ article.add_date|date:"dS"|upper}}, {{ article.add_date.year }}
-        </time>
-      </p>
-      <h1 class="title"><b>{{ article.title }}</b></h1>
-	{% for tag in article.tags.all %}
-		<li>{{tag}}</li>
-	{% endfor %}
-    </header>
-    {{ article.get_html }}
-</article>
+    <div id="main">
+        <div class="header">
+            <h1>{{ article.title }}</h1>
+            <h2>{{ article.add_date|date:'M'|upper }}
+          {{ article.add_date|date:"dS"|upper}}, {{ article.add_date.year }}</h2>
+        </div>
+
+        <div class="content">
+            {{ article.get_html }}
+        </div>
+    </div>
 {% endautoescape %}
-{% endblock content %}
+</div>
+<script src="{% static 'js/blog/ui.js' %}"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ class BlogPostAdminForm(forms.ModelForm):
         model = BlogPost
 
     def _media(self):
-	js = ['js/tinymce/tinymce.min.js','js/tinymce/config.js']
+	js = []
         return forms.Media(js=js)
 
     media = property(_media)

@@ -1,31 +1,37 @@
 {% extends 'my_blog/blog_base.html' %}
 {% block content %}
-    <div class="grid clr">
-	{% for blogpost in blogposts %}
-        <article id="post-783" class="loop-entry">
-            <div class="loop-entry-details">
-                <header><h2><a href="{{blogpost.get_absolute_url}}">{{ blogpost.title }}</a></h2></header>
-		<p>{{ blogpost.add_date }}</p>
-                <div class="loop-entry-excerpt">
-                	{% for tag in blogpost.tags.all %}
-			<li>{{tag}}</li>
-			{% endfor %}
-                </div>
-            </div>
-        </article>
-	{% endfor %}
-   </div>
-    	{% if blogposts.object_list and blogposts.paginator.num_pages > 1 %}
-          <div>
-          <ul class="pager">
-          {% if blogposts.has_previous %}
-            <li><a href="?page={{ blogposts.previous_page_number }}">上一页</a></li>
-          {% endif %}
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+        	{% for blogpost in blogposts %}
+            <div class="posts">
+                <h1 class="content-subhead">{{ blogpost.add_date }}</h1>
+                <section class="post">
+                    <header class="post-header">
+                        <h2 class="post-title"><a href="{{blogpost.get_absolute_url}}" style="text-decoration:none;color:black;">{{ blogpost.title }}</a></h2>
 
-          {% if blogposts.has_next %}
-            <li><a href="?page={{ blogposts.next_page_number }}">下一页</a></li>
-          {% endif %}
-          </ul>
-          </div>
-        {% endif %}
+                        <p class="post-meta">
+                            By <a href="#" class="post-author">lwt</a> Tag:
+                            {% for tag in blogpost.tags.all %}
+                            <a class="post-category post-category-pure" href="javasciprt:void(0)">{{tag}}</a>
+                            {% endfor %}
+                        </p>
+                    </header>
+                </section>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+	{% if blogposts.object_list and blogposts.paginator.num_pages > 1 %}
+      <div>
+      <ul class="pager">
+      {% if blogposts.has_previous %}
+        <li><a href="?page={{ blogposts.previous_page_number }}">上一页</a></li>
+      {% endif %}
+
+      {% if blogposts.has_next %}
+        <li><a href="?page={{ blogposts.next_page_number }}">下一页</a></li>
+      {% endif %}
+      </ul>
+      </div>
+    {% endif %}
 {% endblock content %}

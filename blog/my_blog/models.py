@@ -24,7 +24,6 @@ class BlogPost(models.Model):
 	body = models.TextField(u'内容(Markdown)',blank=True)
 	add_date = models.DateTimeField(u'日期',auto_now_add=True)
 	html_file = models.FileField(upload_to=html_dir,blank=True)
-	use_visual_editor = models.BooleanField(u'关闭Markdown')
 	tags = TaggableManager(u'标签(逗号分隔)')
 	
 	def __unicode__(self):
@@ -47,11 +46,8 @@ class BlogPost(models.Model):
 			data = self.body.encode('utf-8')
 		else:
 			print 'Error!'
-		if self.use_visual_editor == False:
-			r = requests.post('https://api.github.com/markdown/raw',headers=headers,data=data)
-			self.html_file.save(self.title+'.html',ContentFile(r.text.encode('utf-8')),save=False)
-		else:
-			self.html_file.save(self.title+'.html',ContentFile(data),save=False)
+		r = requests.post('https://api.github.com/markdown/raw',headers=headers,data=data)
+		self.html_file.save(self.title+'.html',ContentFile(r.text.encode('utf-8')),save=False)
 		self.html_file.close()
 
 		super(BlogPost,self).save(*args,**kwargs)
