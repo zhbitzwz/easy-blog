@@ -1,6 +1,7 @@
 {% extends 'my_blog/blog_base.html' %}
 {% block content %}
     <div class="content pure-u-1 pure-u-md-3-4">
+	{% if error %}<p>No Result!</p>{% endif %}
         <div>
         	{% for blogpost in blogposts %}
             <div class="posts">
