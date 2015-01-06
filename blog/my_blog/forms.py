@@ -6,7 +6,8 @@ class BlogPostAdminForm(forms.ModelForm):
         model = BlogPost
 
     def _media(self):
-	js = []
+		# 这里可为后台添加可视化编辑器插件
+		js = []
         return forms.Media(js=js)
 
     media = property(_media)

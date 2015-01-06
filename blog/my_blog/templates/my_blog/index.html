@@ -24,14 +24,16 @@
     </div>
 	{% if blogposts.object_list and blogposts.paginator.num_pages > 1 %}
       <div>
-      <ul class="pager">
-      {% if blogposts.has_previous %}
-        <li><a href="?page={{ blogposts.previous_page_number }}">上一页</a></li>
+      <ul class="pager" style="list-style-type:none;text-align:right;margin-left:60%">
+      {% if blogposts.has_next %}
+        <li style="float:right;margin-left:5%;"><a class="pure-button pure-button-primary" href="?page={{ blogposts.next_page_number }}">下一页</a></li>
       {% endif %}
 
-      {% if blogposts.has_next %}
-        <li><a href="?page={{ blogposts.next_page_number }}">下一页</a></li>
+      {% if blogposts.has_previous %}
+        <li style="float:right;"><a class="pure-button pure-button-primary" href="?page={{ blogposts.previous_page_number }}">上一页</a></li>
+        <br>
       {% endif %}
+    <div style="clear:both;"></div>
       </ul>
       </div>
     {% endif %}
