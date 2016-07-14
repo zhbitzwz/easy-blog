@@ -1,2 +1,5 @@
 Initial on Feature-test
+<<<<<<< HEAD
 Second on Feature-test
+=======
+>>>>>>> c929752296dc65cdd6c96fdbd24824edb99bb82b
